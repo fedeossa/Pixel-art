@@ -87,9 +87,9 @@ function upMouse(){
 	mouseClickStatus = false;
 }
 // Detectar movimientos del mouse
-$(document).mousedown(clickMouse);
-$(document).mouseup(upMouse);
-$("#grilla-pixeles div").mousemove(pintarPixelesGrilla);
+$(document).on("mousedown", clickMouse);
+$(document).on("mouseup", upMouse);
+$("#grilla-pixeles div").on("mousemove", pintarPixelesGrilla);
 
 //Borrar todo!!!!
 function borrarTodo(){
@@ -103,33 +103,72 @@ function pintarConBalde() {
 	var colorActual = $baldePintura.css("background-color");
 	$("#grilla-pixeles div").css("background-color", colorActual);
 }
-
-function onTouch(evt) {
-  evt.preventDefault();
-  if (evt.touches.length > 1 || (evt.type == "touchend" && evt.touches.length > 0))
-    return;
-
-  var newEvt = document.createEvent("MouseEvents");
-  var type = null;
-  var touch = null;
-
-  switch (evt.type) {
-    case "touchstart": 
-      type = "mousedown";
-      touch = evt.changedTouches[0];
-      break;
-    case "touchmove":
-      type = "mousemove";
-      touch = evt.changedTouches[0];
-      break;
-    case "touchend":        
-      type = "mouseup";
-      touch = evt.changedTouches[0];
-      break;
-  }
-
-  newEvt.initMouseEvent(type, true, true, evt.originalTarget.ownerDocument.defaultView, 0,
-    touch.screenX, touch.screenY, touch.clientX, touch.clientY,
-    evt.ctrlKey, evt.altKey, evt.shiftKey, evt.metaKey, 0, null);
-  evt.originalTarget.dispatchEvent(newEvt);
-}
+////////////////////////////////////////////
+////////// touch!
+///////
+/* == GLOBAL DECLERATIONS == */
+    TouchMouseEvent = {
+        DOWN: "touchmousedown",
+        UP: "touchmouseup",
+        MOVE: "touchmousemove"
+    }
+   
+    /* == EVENT LISTENERS == */
+    var onMouseEvent = function(event) {
+        var type;
+        
+        switch (event.type) {
+            case "mousedown": type = TouchMouseEvent.DOWN; break;
+            case "mouseup":   type = TouchMouseEvent.UP;   break;
+            case "mousemove": type = TouchMouseEvent.MOVE; break;
+            default: 
+                return;
+        }
+        
+        var touchMouseEvent = normalizeEvent(type, event, event.pageX, event.pageY);      
+        $(event.target).trigger(touchMouseEvent); 
+    }
+    
+    var onTouchEvent = function(event) {
+        var type;
+        
+        switch (event.type) {
+            case "touchstart": type = TouchMouseEvent.DOWN; break;
+            case "touchend":   type = TouchMouseEvent.UP;   break;
+            case "touchmove":  type = TouchMouseEvent.MOVE; break;
+            default: 
+                return;
+        }
+        
+        var touch = event.originalEvent.touches[0];
+        var touchMouseEvent;
+        
+        if (type == TouchMouseEvent.UP) 
+            touchMouseEvent = normalizeEvent(type, event, null, null);
+        else 
+            touchMouseEvent = normalizeEvent(type, event, touch.pageX, touch.pageY);
+        
+        $(event.target).trigger(touchMouseEvent); 
+    }
+    
+    /* == NORMALIZE == */
+    var normalizeEvent = function(type, original, x, y) {
+        return $.Event(type, {
+            pageX: x,
+            pageY: y,
+            originalEvent: original
+        });
+    }
+    
+    /* == LISTEN TO ORIGINAL EVENT == */
+    var jQueryDocument = $(document);
+   
+    if ("ontouchstart" in window) {
+        jQueryDocument.on("touchstart", onTouchEvent);
+        jQueryDocument.on("touchmove", onTouchEvent);
+        jQueryDocument.on("touchend", onTouchEvent); 
+    } else {
+        jQueryDocument.on("mousedown", onMouseEvent);
+        jQueryDocument.on("mouseup", onMouseEvent);
+        jQueryDocument.on("mousemove", onMouseEvent);
+    }
