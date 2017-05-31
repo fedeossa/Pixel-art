@@ -38,16 +38,14 @@ $colorPersonalizado.change(function(){
 //Crear Paleta de colores
 var $paleta = $("#paleta");
 
-function crearPaleta(){
-	for (var i = 0; i < nombreColores.length; i++) {
-		var nuevoColor = nombreColores[i];
+function nuevoColor(currentValue) {
+	var nuevoColor = currentValue;
 		nuevoColor = $("<div>", {"class": "color-paleta"});
-		nuevoColor.css("background-color", nombreColores[i]);
+		nuevoColor.css("background-color", currentValue);
 		$paleta.append(nuevoColor);
-	}
 };
 
-crearPaleta();
+nombreColores.forEach(nuevoColor);	
 
 //Crear grilla de pixeles
 var $grillaDePixeles = $("#grilla-pixeles");
@@ -65,7 +63,7 @@ function eleccionColorPaleta(){
 	var colorActual = $(this).css("background-color");
 	$indicadorDeColor.css("background-color", colorActual);
 	$baldePintura.css("background-color", colorActual);
-	//$colorPersonalizado.attr("value", colorActual); tiene que ser hexadecimal =(
+	//$colorPersonalizado.attr("value", colorActual); tiene que ser hexadecimal? =(
 };
 
 $paleta.children(".color-paleta").click(eleccionColorPaleta);
@@ -92,11 +90,7 @@ function upMouse(){
 $(document).mousedown(clickMouse);
 $(document).mouseup(upMouse);
 $("#grilla-pixeles div").mousemove(pintarPixelesGrilla);
-$pixel.click(function(){
-	clickMouse();
-	pintarPixelesGrilla();
-	upMouse();
-});
+
 //Borrar todo!!!!
 function borrarTodo(){
 	$("#grilla-pixeles").css("background-color", "White").effect("fade");
