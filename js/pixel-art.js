@@ -74,7 +74,10 @@ var $pixel = $grillaDePixeles.children();
 function pintarPixelesGrilla(){
 	if (mouseClickStatus==true) {
 	var colorDefondo = $indicadorDeColor.css("background-color");
-	$(this).css("background-color", colorDefondo);}
+	$(this).css("background-color", colorDefondo);
+	console.log("Pintando");
+	return;
+	}
 };
 
 //Variable para detectar si el click esta activado o no
@@ -82,14 +85,16 @@ var mouseClickStatus = false;
 
 function clickMouse(){
 	mouseClickStatus = true;
+	console.log(mouseClickStatus);
 }
 function upMouse(){
 	mouseClickStatus = false;
+	console.log(mouseClickStatus);
 }
 // Detectar movimientos del mouse
-$(document).on("mousedown", clickMouse);
-$(document).on("mouseup", upMouse);
-$("#grilla-pixeles div").on("mousemove", pintarPixelesGrilla);
+$(document).on("mousedown touchstart", clickMouse);
+$(document).on("mouseup touchend", upMouse);
+$("#grilla-pixeles div").on("mousemove touchmove", pintarPixelesGrilla);
 
 //Borrar todo!!!!
 function borrarTodo(){
@@ -103,72 +108,3 @@ function pintarConBalde() {
 	var colorActual = $baldePintura.css("background-color");
 	$("#grilla-pixeles div").css("background-color", colorActual);
 }
-////////////////////////////////////////////
-////////// touch!
-///////
-/* == GLOBAL DECLERATIONS == */
-    TouchMouseEvent = {
-        DOWN: "touchmousedown",
-        UP: "touchmouseup",
-        MOVE: "touchmousemove"
-    }
-   
-    /* == EVENT LISTENERS == */
-    var onMouseEvent = function(event) {
-        var type;
-        
-        switch (event.type) {
-            case "mousedown": type = TouchMouseEvent.DOWN; break;
-            case "mouseup":   type = TouchMouseEvent.UP;   break;
-            case "mousemove": type = TouchMouseEvent.MOVE; break;
-            default: 
-                return;
-        }
-        
-        var touchMouseEvent = normalizeEvent(type, event, event.pageX, event.pageY);      
-        $(event.target).trigger(touchMouseEvent); 
-    }
-    
-    var onTouchEvent = function(event) {
-        var type;
-        
-        switch (event.type) {
-            case "touchstart": type = TouchMouseEvent.DOWN; break;
-            case "touchend":   type = TouchMouseEvent.UP;   break;
-            case "touchmove":  type = TouchMouseEvent.MOVE; break;
-            default: 
-                return;
-        }
-        
-        var touch = event.originalEvent.touches[0];
-        var touchMouseEvent;
-        
-        if (type == TouchMouseEvent.UP) 
-            touchMouseEvent = normalizeEvent(type, event, null, null);
-        else 
-            touchMouseEvent = normalizeEvent(type, event, touch.pageX, touch.pageY);
-        
-        $(event.target).trigger(touchMouseEvent); 
-    }
-    
-    /* == NORMALIZE == */
-    var normalizeEvent = function(type, original, x, y) {
-        return $.Event(type, {
-            pageX: x,
-            pageY: y,
-            originalEvent: original
-        });
-    }
-    
-    /* == LISTEN TO ORIGINAL EVENT == */
-    var jQueryDocument = $(document);
-   
-    if ("ontouchstart" in window) {
-        jQueryDocument.on("touchstart", onTouchEvent);
-        jQueryDocument.on("touchmove", onTouchEvent);
-        jQueryDocument.on("touchend", onTouchEvent); 
-    } else {
-        jQueryDocument.on("mousedown", onMouseEvent);
-        jQueryDocument.on("mouseup", onMouseEvent);
-        jQueryDocument.on("mousemove", onMouseEvent);
-    }
