@@ -19,6 +19,7 @@ function guardarPixelArt(){
 function cargarSuperheroe(superheroe){
   var elementoHeroe = toDOM(superheroe);
   var el = $('#grilla-pixeles').replaceWith(elementoHeroe);
-  $("#grilla-pixeles div").mousemove(pintarPixelesGrilla);
+  $("#grilla-pixeles div").mousemove(pintarPixelesMoviendo);
+  $("#grilla-pixeles div").click(pintarPixelesGrilla);
   return elementoHeroe;
 }
