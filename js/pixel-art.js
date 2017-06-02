@@ -72,13 +72,17 @@ $paleta.children(".color-paleta").click(eleccionColorPaleta);
 var $pixel = $grillaDePixeles.children();
 
 function pintarPixelesGrilla(){
-	if (mouseClickStatus==true) {
 	var colorDefondo = $indicadorDeColor.css("background-color");
 	$(this).css("background-color", colorDefondo);
-	console.log("Pintando");
-	return;
-	}
+	//console.log("Pintando");
 };
+function pintarPixelesMoviendo(){
+	if (mouseClickStatus==true) {
+		var colorDefondo = $indicadorDeColor.css("background-color");
+		$(this).css("background-color", colorDefondo);
+		console.log("Pintando"); //En touch devulve el msj pero no pinta :P
+	}
+}
 
 //Variable para detectar si el click esta activado o no
 var mouseClickStatus = false;
@@ -92,9 +96,10 @@ function upMouse(){
 	console.log(mouseClickStatus);
 }
 // Detectar movimientos del mouse
+$("#grilla-pixeles div").click(pintarPixelesGrilla);
 $(document).on("mousedown touchstart", clickMouse);
 $(document).on("mouseup touchend", upMouse);
-$("#grilla-pixeles div").on("mousemove touchmove", pintarPixelesGrilla);
+$("#grilla-pixeles div").on("mousemove touchmove", pintarPixelesMoviendo);
 
 //Borrar todo!!!!
 function borrarTodo(){
