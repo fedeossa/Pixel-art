@@ -75,7 +75,7 @@ function pintarPixelesMoviendo(){
 	if (mouseClickStatus==true) {
 		var colorDefondo = $indicadorDeColor.css("background-color");
 		$(this).css("background-color", colorDefondo);
-		console.log("Pintando"); //En touch devulve el msj pero no pinta scrollea :P
+		//console.log("Pintando"); //En touch devulve el msj pero no pinta scrollea :P
 	}
 }
 
@@ -84,11 +84,11 @@ var mouseClickStatus = false;
 
 function clickMouse(){
 	mouseClickStatus = true;
-	console.log(mouseClickStatus);
+	//console.log(mouseClickStatus);
 }
 function upMouse(){
 	mouseClickStatus = false;
-	console.log(mouseClickStatus);
+	//console.log(mouseClickStatus);
 }
 
 //Borrar todo!!!!
