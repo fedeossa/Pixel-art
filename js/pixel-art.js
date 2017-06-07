@@ -45,8 +45,6 @@ function nuevoColor(currentValue) {
 		$paleta.append(nuevoColor);
 };
 
-nombreColores.forEach(nuevoColor);	
-
 //Crear grilla de pixeles
 var $grillaDePixeles = $("#grilla-pixeles");
 
@@ -56,7 +54,6 @@ function crearGrilla(){
 		$grillaDePixeles.append(nuevoPixel);
 	}
 };
-crearGrilla();
 
 //Eleccion color paleta
 function eleccionColorPaleta(){
@@ -65,8 +62,6 @@ function eleccionColorPaleta(){
 	$baldePintura.css("background-color", colorActual);
 	//$colorPersonalizado.attr("value", colorActual); tiene que ser hexadecimal? =(
 };
-
-$paleta.children(".color-paleta").click(eleccionColorPaleta);
 
 //Pintar pixeles en la grilla
 var $pixel = $grillaDePixeles.children();
@@ -80,7 +75,7 @@ function pintarPixelesMoviendo(){
 	if (mouseClickStatus==true) {
 		var colorDefondo = $indicadorDeColor.css("background-color");
 		$(this).css("background-color", colorDefondo);
-		console.log("Pintando"); //En touch devulve el msj pero no pinta :P
+		console.log("Pintando"); //En touch devulve el msj pero no pinta scrollea :P
 	}
 }
 
@@ -95,11 +90,6 @@ function upMouse(){
 	mouseClickStatus = false;
 	console.log(mouseClickStatus);
 }
-// Detectar movimientos del mouse
-$("#grilla-pixeles div").click(pintarPixelesGrilla);
-$(document).on("mousedown touchstart", clickMouse);
-$(document).on("mouseup touchend", upMouse);
-$("#grilla-pixeles div").on("mousemove touchmove", pintarPixelesMoviendo);
 
 //Borrar todo!!!!
 function borrarTodo(){
@@ -113,3 +103,30 @@ function pintarConBalde() {
 	var colorActual = $baldePintura.css("background-color");
 	$("#grilla-pixeles div").css("background-color", colorActual);
 }
+
+///////////////////////////////////
+//// MAIN
+
+//Crear Paleta de colores
+nombreColores.forEach(nuevoColor);
+//Eleccion color paleta
+$paleta.children(".color-paleta").click(eleccionColorPaleta);
+//Crear grilla de pixeles
+crearGrilla();
+
+$(document).ready(function() {
+// Detectar movimientos del mouse
+	$("#grilla-pixeles div").click(pintarPixelesGrilla);
+	$(document).on("mousedown touchstart", clickMouse);
+	$(document).on("mouseup touchend", upMouse);
+	$("#grilla-pixeles div").on("mousemove touchmove", pintarPixelesMoviendo);
+// Cargar superheroes
+	$("#batman").click(function() {cargarSuperheroe(batmann)});
+	$("#wonder").click(function() {cargarSuperheroe(mujerMaravilla)});
+	$("#flash").click(function() {cargarSuperheroe(flashh)});
+	$("#invisible").click(function() {cargarSuperheroe(invisiblee)});
+//Botones de acción
+	$("#guardar").click(guardarPixelArt);
+	$("#borrar").click(borrarTodo);
+	$("#baldePintura").click(pintarConBalde);
+});
