@@ -1,23 +1,15 @@
-var nombreColores = ['White','LightYellow',
-    'LemonChiffon', 'LightGoldenrodYellow', 'PapayaWhip', 'Moccasin','PeachPuff', 'PaleGoldenrod',  'Bisque', 'NavajoWhite', 'Wheat', 'BurlyWood', 'Tan',
-'Khaki', 'Yellow', 'Gold', 'Orange', 'DarkOrange', 'OrangeRed', 'Tomato', 'Coral', 'DarkSalmon', 'LightSalmon', 'LightCoral', 'Salmon', 'PaleVioletRed',
-'Pink', 'LightPink','HotPink', 'DeepPink', 'MediumVioletRed','Crimson', 'Red', 'FireBrick', 'DarkRed', 'Maroon',
- 'Brown','Sienna','SaddleBrown', 'IndianRed', 'RosyBrown',
-'SandyBrown', 'Goldenrod', 'DarkGoldenrod', 'Peru',
-'Chocolate',  'DarkKhaki','DarkSeaGreen', 'MediumAquaMarine',
-    'MediumSeaGreen', 'SeaGreen', 'ForestGreen', 'Green','DarkGreen','OliveDrab','Olive', 'DarkOliveGreen', 'YellowGreen', 'LawnGreen',
-'Chartreuse', 'GreenYellow', 'Lime', 'SpringGreen', 'LimeGreen',
-'LightGreen', 'PaleGreen', 'PaleTurquoise',
-'AquaMarine',  'Cyan','Turquoise', 'MediumTurquoise', 'DarkTurquoise', 'DeepSkyBlue',
-'LightSeaGreen', 'CadetBlue', 'DarkCyan', 'Teal', 'Steelblue', 'LightSteelBlue', 'Honeydew','LightCyan',
-'PowderBlue', 'LightBlue', 'SkyBlue', 'LightSkyBlue',
-'DodgerBlue', 'CornflowerBlue', 'RoyalBlue', 'SlateBlue',
-'MediumSlateBlue', 'DarkSlateBlue', 'Indigo', 'Purple', 'DarkMagenta', 'Blue',
-'MediumBlue', 'DarkBlue', 'Navy', 'Thistle',
-'Plum', 'Violet', 'Orchid','DarkOrchid', 'Fuchsia', 'Magenta', 'MediumOrchid',
-'BlueViolet', 'DarkViolet', 'DarkOrchid',
- 'MediumPurple', 'Lavender', 'Gainsboro', 'LightGray', 'Silver', 'DarkGray', 'Gray',
-    'DimGray', 'LightSlateGray', 'DarkSlateGray', 'Black'];
+var nombreColores = ['White', 'LightYellow','LemonChiffon', 'LightGoldenrodYellow', 'PapayaWhip', 'Moccasin', 'PeachPuff', 'PaleGoldenrod', 'Bisque', 'NavajoWhite', 'Wheat', 'BurlyWood', 'Tan',
+  'Khaki', 'Yellow', 'Gold', 'Orange', 'DarkOrange', 'OrangeRed', 'Tomato', 'Coral', 'DarkSalmon', 'LightSalmon', 'LightCoral', 'Salmon', 'PaleVioletRed',
+  'Pink', 'LightPink', 'HotPink', 'DeepPink', 'MediumVioletRed', 'Crimson', 'Red', 'FireBrick', 'DarkRed', 'Maroon',
+  'Brown', 'Sienna', 'SaddleBrown', 'IndianRed', 'RosyBrown', 'SandyBrown', 'Goldenrod', 'DarkGoldenrod', 'Peru',
+  'Chocolate', 'DarkKhaki', 'DarkSeaGreen', 'MediumAquaMarine', 'MediumSeaGreen', 'SeaGreen', 'ForestGreen', 'Green', 'DarkGreen', 'OliveDrab', 'Olive', 'DarkOliveGreen', 'YellowGreen', 'LawnGreen',
+  'Chartreuse', 'GreenYellow', 'Lime', 'SpringGreen', 'LimeGreen', 'LightGreen', 'PaleGreen', 'PaleTurquoise',
+  'AquaMarine', 'Cyan', 'Turquoise', 'MediumTurquoise', 'DarkTurquoise', 'DeepSkyBlue', 'LightSeaGreen', 'CadetBlue', 'DarkCyan', 'Teal', 'Steelblue', 'LightSteelBlue', 'Honeydew', 'LightCyan',
+  'PowderBlue', 'LightBlue', 'SkyBlue', 'LightSkyBlue', 'DodgerBlue', 'CornflowerBlue', 'RoyalBlue', 'SlateBlue',
+  'MediumSlateBlue', 'DarkSlateBlue', 'Indigo', 'Purple', 'DarkMagenta', 'Blue', 'MediumBlue', 'DarkBlue', 'Navy', 'Thistle',
+  'Plum', 'Violet', 'Orchid', 'DarkOrchid', 'Fuchsia', 'Magenta', 'MediumOrchid', 'BlueViolet', 'DarkViolet', 'DarkOrchid',
+  'MediumPurple', 'Lavender', 'Gainsboro', 'LightGray', 'Silver', 'DarkGray', 'Gray', 'DimGray', 'LightSlateGray', 'DarkSlateGray', 'Black'
+];
 
 // Variable jQuery para guardar el elemento 'color-personalizado'
 // Es decir, el que se elige con la rueda de color.
@@ -25,9 +17,9 @@ var $colorPersonalizado = $('#color-personalizado');
 var $indicadorDeColor = $("#indicador-de-color");
 var $baldePintura = $("#baldePintura");
 
-$colorPersonalizado.change(function(){
+$colorPersonalizado.change(function() {
   // Se guarda el color de la rueda en colorActual
-  colorActual = $colorPersonalizado.val();
+  var colorActual = $colorPersonalizado.val();
   // Completar para que cambie el indicador-de-color al colorActual
   $indicadorDeColor.css("background-color", colorActual);
   $baldePintura.css("background-color", colorActual);
@@ -40,9 +32,9 @@ var $paleta = $("#paleta");
 
 function nuevoColor(currentValue) {
 	var nuevoColor = currentValue;
-		nuevoColor = $("<div>", {"class": "color-paleta"});
-		nuevoColor.css("background-color", currentValue);
-		$paleta.append(nuevoColor);
+	nuevoColor = $("<div>", {"class": "color-paleta"});
+	nuevoColor.css("background-color", currentValue);
+	$paleta.append(nuevoColor);
 };
 
 //Crear grilla de pixeles
@@ -55,6 +47,13 @@ function crearGrilla(){
 	}
 };
 
+//Eleccion color paleta
+function eleccionColorPaleta(){
+	var colorActual = $(this).css("background-color");
+	$indicadorDeColor.css("background-color", colorActual);
+	$baldePintura.css("background-color", colorActual);
+	//$colorPersonalizado.attr("value", colorActual); tiene que ser hexadecimal? =(
+};
 //Eleccion color paleta
 function eleccionColorPaleta(){
 	var colorActual = $(this).css("background-color");
@@ -92,9 +91,12 @@ function upMouse(){
 }
 
 //Borrar todo!!!!
-function borrarTodo(){
+function borrarTodo(){	
+	var result = window.confirm("¿Seguro que quieres borrar todo?");
+	if(result){
 	$("#grilla-pixeles").css("background-color", "White").effect("fade");
 	$("#grilla-pixeles div").css("background-color", "White");
+	};
 }
 
 //FUNCIONES EXTRAS & CHIMI
@@ -121,12 +123,12 @@ $(document).ready(function() {
 	$(document).on("mouseup touchend", upMouse);
 	$("#grilla-pixeles div").on("mousemove touchmove", pintarPixelesMoviendo);
 // Cargar superheroes
-	$("#batman").click(function() {cargarSuperheroe(batmann)});
-	$("#wonder").click(function() {cargarSuperheroe(mujerMaravilla)});
-	$("#flash").click(function() {cargarSuperheroe(flashh)});
-	$("#invisible").click(function() {cargarSuperheroe(invisiblee)});
+	$("#batman").click(function() {cargarSuperheroe(batman)});
+	$("#wonder").click(function() {cargarSuperheroe(wonder)});
+	$("#flash").click(function() {cargarSuperheroe(flash)});
+	$("#invisible").click(function() {cargarSuperheroe(invisible)});
 //Botones de acción
 	$("#guardar").click(guardarPixelArt);
 	$("#borrar").click(borrarTodo);
-	$("#baldePintura").click(pintarConBalde);
+	$("#baldePintura").dblclick(pintarConBalde);
 });

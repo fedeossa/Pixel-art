@@ -2,24 +2,22 @@
 
 
 // Abre una ventana para guardar nuestro arte en un archivo pixel-art.png
-function guardarPixelArt(){
-  html2canvas($grillaDePixeles, {
-      onrendered: function(canvas) {
-          theCanvas = canvas;
-          canvas.toBlob(function(blob) {
-             saveAs(blob, "pixel-art.png");
-          });
-      }
+function guardarPixelArt() {
+  html2canvas($("#grilla-pixeles") , {
+    onrendered: function(canvas) {
+      theCanvas = canvas;
+      canvas.toBlob(function(blob) {
+        var nombreArchivo = prompt("¿Qué nombre quieres ponerle al archivo?");
+        saveAs(blob, nombreArchivo+".png");
+      });
+    }
   });
 }
 
-// Carga a un superheroe.
-// El superheroe está guardado en un formato especial llamado json, pero no
-// hay que preocuparse de eso por el momento
-function cargarSuperheroe(superheroe){
-  var elementoHeroe = toDOM(superheroe);
-  var el = $('#grilla-pixeles').replaceWith(elementoHeroe);
-  $("#grilla-pixeles div").mousemove(pintarPixelesMoviendo);
-  $("#grilla-pixeles div").click(pintarPixelesGrilla);
-  return elementoHeroe;
+// Carga a un superheroe predefinido
+function cargarSuperheroe(superheroe) {
+  var $pixeles = $("#grilla-pixeles div");
+  for (var i = 0; i < superheroe.length; i++) {
+    $pixeles[i].style.backgroundColor = superheroe[i];
+  }
 }

@@ -44,13 +44,13 @@ button:hover{
 ul {
   list-style: none;
   padding: 0;
-  margin: 20px 10px;
+  margin: 20px 10px 10px 10px;
   text-align: left;
 }
 p {
   text-transform: uppercase;
-  font-size: .3em;
-  text-align: right;
+  font-size: .6em;
+  text-align: left;
 }
 h1 {
   color: white;
@@ -88,7 +88,7 @@ input[type="color"]::-webkit-color-swatch {
   width: 15px;
   cursor: pointer;
   margin: 0;
-    outline: 1px solid white;
+  outline: 1px solid white;
 }
 
 .custom {
@@ -102,24 +102,22 @@ input[type="color"]::-webkit-color-swatch {
   margin: 0;
   padding: 0;
 }
-
 main {
-  width: 25%;
+  width: 20%;
   padding: 0 25px;
 }
 #grilla-pixeles {
   background-color: white;
-  min-width: 795px;
-  min-height: 495px;
+  width: 795px;
+  height: 495px;
   overflow: hidden;
-  box-sizing: content-box;
 }
 
 #container {
-  width: 1000px;
+  width: 100%;
   margin: 20px auto;
   justify-content: center;
-  flex-direction: row-reverse
+  flex-direction: row-reverse;
 
 }
 #container, li, .imgs {
@@ -138,21 +136,27 @@ img {
   max-width: 100%;
   height: auto;
 }
- .input-color li {
+.input-color li {
    margin: 10px 0;
-   justify-content: flex-start;
+   justify-content: start;
    background-color: gray;
- }
- .input-color li img {
+}
+.input-color li img {
   background-color: white;
   height: 30px;
   width: 30px;
-  padding: 1.5%;
- }
- .input-color li p {
+  padding: 1.5px;
+  margin-right: auto;
+}
+.descriptor {
+  display: block;
+  color: white;
+  justify-content: start;
   font-size: 0.6em;
   text-align: left;
-  padding-left: 4%;
+  padding-left: 1%;
+  margin-right: auto;
+  text-indent: 0px;
 }
 #palette {
   z-index: 5;
@@ -162,7 +166,6 @@ img {
   width: 30px;
   margin: 0;
   position: relative;
-
 }
 #indicador-de-color:after {
   content: "";
@@ -175,10 +178,6 @@ img {
   background: url(../img/empty.gif);
 }
 
-#indicador-de-color-mensaje {
-  color: white;
-}
-
 #result {
   color: white;
 }
@@ -186,6 +185,16 @@ img {
 #pallette {
   margin-top: 15px;
   background-color: black;
+}
+
+@media only screen and (max-width: 1060px) {
+  main {
+    width: 100%;
+  }
+  #container {
+    display: block;
+    width: 100%;
+  }
 }
 
 @media only screen and (max-width: 795px) {
@@ -228,6 +237,7 @@ img {
     margin: 0 auto;
   }
 }
+
 /*Firma */
 footer p {
   font-size: 0.8em; 
@@ -237,6 +247,10 @@ footer p {
   float: none;
   background-color: black;
   color: white;
+}
+footer p {
+  margin: 0px auto;
+  padding: 0.5%;
 }
 a:link {
   color: white;
